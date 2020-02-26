@@ -10,17 +10,23 @@ import com.qa.pages.ContactsPage;
 import com.qa.pages.DealsPage;
 import com.qa.pages.HomePage;
 import com.qa.pages.LoginPage;
+import com.qa.pages.NewContactPage;
+import com.qa.pages.contactlistpage;
 import com.qa.util.ExcelConfigData;
 
 @Listeners(com.qa.util.TestNgListener.class)
-public class HomePageTest extends TestBase {
+public class NewContactPageTest extends TestBase {
+
 	LoginPage lp;
 	HomePage homepage;
 	DealsPage dealspage;
 	ContactsPage contactspage;
 	ExcelConfigData excel;
+	NewContactPage newcontact;
+	contactlistpage contactlist;
 	
-	public HomePageTest() {
+	
+	public NewContactPageTest() {
 		super();
 	}
 
@@ -33,47 +39,27 @@ public class HomePageTest extends TestBase {
 		homepage=new HomePage();
 		dealspage=new DealsPage();
 		contactspage=new ContactsPage(); 
+		newcontact=new NewContactPage();
 		homepage = lp.login(prop.getProperty("username"), prop.getProperty("password"));
+		contactspage=homepage.clickOnContact();
+		 contactlist=new contactlistpage();
+		 newcontact=contactspage.ClickonNewContact();
 	}	
 	
-	
-	
 		@Test
-		public void ClickOnContactsTest() {
-			contactspage=homepage.clickOnContact();
-			String Contactsurl= driver.getCurrentUrl();
-			
-			System.out.println(Contactsurl);
-			
-			
-			
-			
+		public void createcontact() {
+			newcontact.FillForm("Ashwini", "Patil", "balaji", "Capita");
+		
 			}
 
-			
-			@Test
-			public void ClickOnDealsTest()  {
-				dealspage=homepage.ClickOnDeals();
-				String Dealsurl= driver.getCurrentUrl();
-				
-				System.out.println(Dealsurl);
-				
-
-
-			
-			
-		}
-		
-		
+	
 		@AfterMethod
 		public void TearDown() {
 			driver.quit();
 		}
-		
-
-		
-		
-				
-
 	
 }
+	
+	
+
+

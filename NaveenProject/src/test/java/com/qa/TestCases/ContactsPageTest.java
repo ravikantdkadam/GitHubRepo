@@ -10,17 +10,24 @@ import com.qa.pages.ContactsPage;
 import com.qa.pages.DealsPage;
 import com.qa.pages.HomePage;
 import com.qa.pages.LoginPage;
+import com.qa.pages.NewContactPage;
 import com.qa.util.ExcelConfigData;
 
+
 @Listeners(com.qa.util.TestNgListener.class)
-public class HomePageTest extends TestBase {
+
+public class ContactsPageTest extends TestBase {
+	
+	
 	LoginPage lp;
 	HomePage homepage;
 	DealsPage dealspage;
 	ContactsPage contactspage;
 	ExcelConfigData excel;
+	NewContactPage newcontact;
 	
-	public HomePageTest() {
+
+	public ContactsPageTest() {
 		super();
 	}
 
@@ -33,47 +40,22 @@ public class HomePageTest extends TestBase {
 		homepage=new HomePage();
 		dealspage=new DealsPage();
 		contactspage=new ContactsPage(); 
+		newcontact=new NewContactPage();
 		homepage = lp.login(prop.getProperty("username"), prop.getProperty("password"));
+		contactspage=homepage.clickOnContact();
 	}	
 	
-	
-	
 		@Test
-		public void ClickOnContactsTest() {
-			contactspage=homepage.clickOnContact();
-			String Contactsurl= driver.getCurrentUrl();
-			
-			System.out.println(Contactsurl);
-			
-			
-			
-			
+		public void ClickOnNewContact() {
+		    
+			newcontact=	contactspage.ClickonNewContact();
+		
 			}
 
-			
-			@Test
-			public void ClickOnDealsTest()  {
-				dealspage=homepage.ClickOnDeals();
-				String Dealsurl= driver.getCurrentUrl();
-				
-				System.out.println(Dealsurl);
-				
-
-
-			
-			
-		}
-		
-		
+	
 		@AfterMethod
 		public void TearDown() {
 			driver.quit();
 		}
-		
-
-		
-		
-				
-
 	
 }

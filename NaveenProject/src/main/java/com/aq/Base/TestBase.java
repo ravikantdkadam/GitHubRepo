@@ -1,11 +1,15 @@
 package com.aq.Base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -21,18 +25,14 @@ public class TestBase {
 		
 		try {
 			prop =new Properties();
-			FileInputStream ip = new FileInputStream("C:\\Users\\Ravikant\\eclipse-workspace\\NaveenProject\\src\\main\\java\\com\\qa\\config\\config.properties");
+			FileInputStream ip = new FileInputStream("C:\\Users\\Ravikant\\git\\GitHubRepo\\NaveenProject\\src\\main\\java\\com\\qa\\config\\config.properties");
 			
 		prop.load(ip);
 		
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+		} 
 		
 		
 	}
@@ -59,6 +59,20 @@ public class TestBase {
 		
 		
 	}
-	
+
+	public static void takeSnapShot (String TestMethodName) {
+		
+		TakesScreenshot scrShot =((TakesScreenshot)driver);
+		
+		File source=scrShot.getScreenshotAs(OutputType.FILE);
+		
+	try {
+		FileUtils.copyFile(source, new File ("./screenshot/"+TestMethodName+".png"));
+	} catch (IOException e) {
+		
+		e.printStackTrace();
+	}
+		
+	}
 	
 }
